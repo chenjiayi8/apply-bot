@@ -7,7 +7,7 @@ export default function Filters() {
 
       <div className="space-y-6">
         {/* Blacklist Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-stone-800 rounded-lg shadow p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Blacklist
           </h3>
@@ -15,7 +15,7 @@ export default function Filters() {
         </div>
 
         {/* Whitelist Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-stone-800 rounded-lg shadow p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Whitelist
           </h3>
@@ -23,7 +23,7 @@ export default function Filters() {
         </div>
 
         {/* Salary Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-stone-800 rounded-lg shadow p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Salary Preferences
           </h3>

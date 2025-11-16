@@ -5,7 +5,7 @@ export default function Settings() {
         Settings
       </h2>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <div className="bg-white dark:bg-stone-800 rounded-lg shadow p-6">
         <div className="space-y-6">
           {/* Import/Export Section */}
           <div>
@@ -16,7 +16,7 @@ export default function Settings() {
           </div>
 
           {/* Clear Data Section */}
-          <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="pt-6 border-t border-gray-200 dark:border-stone-700">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               Data Management
             </h3>
