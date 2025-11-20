@@ -329,23 +329,13 @@ export default function Prompts() {
                         )}
                       </Button>
                       {editingId !== prompt.id && (
-                        <>
-                          <Button
-                            onClick={() => handleStartEdit(prompt)}
-                            variant="ghost"
-                            size="sm"
-                          >
-                            <Edit2 className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            onClick={() => handleDelete(prompt.id)}
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </>
+                        <Button
+                          onClick={() => handleStartEdit(prompt)}
+                          variant="ghost"
+                          size="sm"
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -378,14 +368,25 @@ export default function Prompts() {
                           className="w-full px-3 py-2 border border-gray-300 dark:border-stone-600 rounded-lg bg-white dark:bg-stone-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                         />
                       </div>
-                      <div className="flex gap-2">
-                        <Button onClick={handleSaveEdit} size="sm">
-                          <Save className="h-4 w-4 mr-1" />
-                          Save
-                        </Button>
-                        <Button onClick={handleCancelEdit} variant="outline" size="sm">
-                          <X className="h-4 w-4 mr-1" />
-                          Cancel
+                      <div className="flex flex-col gap-2">
+                        <div className="flex gap-2">
+                          <Button onClick={handleSaveEdit} size="sm">
+                            <Save className="h-4 w-4 mr-1" />
+                            Save
+                          </Button>
+                          <Button onClick={handleCancelEdit} variant="outline" size="sm">
+                            <X className="h-4 w-4 mr-1" />
+                            Cancel
+                          </Button>
+                        </div>
+                        <Button
+                          onClick={() => handleDelete(prompt.id)}
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 w-fit"
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Delete
                         </Button>
                       </div>
                     </div>
