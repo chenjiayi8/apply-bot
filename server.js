@@ -14,6 +14,7 @@ const PORT = 3010
 // Get paths to JSON files (in data directory)
 const knowledgeJsonPath = path.join(__dirname, 'data', 'knowledge.json')
 const appliedJsonPath = path.join(__dirname, 'data', 'applied.json')
+const promptsJsonPath = path.join(__dirname, 'data', 'prompts.json')
 const dataDir = path.join(__dirname, 'data')
 
 // Ensure data directory exists
@@ -224,6 +225,127 @@ app.delete('/api/resumes/:filename', (req, res) => {
   } catch (error) {
     console.error('Error deleting resume:', error)
     res.status(500).json({ error: 'Failed to delete resume' })
+  }
+})
+
+// Prompts API
+// Get all prompts
+app.get('/api/prompts', (req, res) => {
+  try {
+    if (!fs.existsSync(promptsJsonPath)) {
+      return res.json({ prompts: [] })
+    }
+    const data = fs.readFileSync(promptsJsonPath, 'utf-8')
+    const json = data.trim() ? JSON.parse(data) : { prompts: [] }
+    res.json(json)
+  } catch (error) {
+    console.error('Error reading prompts.json:', error)
+    res.status(500).json({ error: 'Failed to read prompts.json' })
+  }
+})
+
+// Create new prompt
+app.post('/api/prompts', (req, res) => {
+  try {
+    const { name, content, isDefault } = req.body
+    
+    if (!name || !content) {
+      return res.status(400).json({ error: 'Name and content are required' })
+    }
+    
+    let promptsData = { prompts: [] }
+    if (fs.existsSync(promptsJsonPath)) {
+      const data = fs.readFileSync(promptsJsonPath, 'utf-8')
+      promptsData = data.trim() ? JSON.parse(data) : { prompts: [] }
+    }
+    
+    // If setting as default, unset other defaults
+    if (isDefault) {
+      promptsData.prompts = promptsData.prompts.map(p => ({ ...p, isDefault: false }))
+    }
+    
+    const newPrompt = {
+      id: `prompt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      name,
+      content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      isDefault: isDefault || false
+    }
+    
+    promptsData.prompts.push(newPrompt)
+    fs.writeFileSync(promptsJsonPath, JSON.stringify(promptsData, null, 2), 'utf-8')
+    res.json({ success: true, prompt: newPrompt })
+  } catch (error) {
+    console.error('Error creating prompt:', error)
+    res.status(500).json({ error: 'Failed to create prompt' })
+  }
+})
+
+// Update prompt
+app.put('/api/prompts/:id', (req, res) => {
+  try {
+    const { id } = req.params
+    const { name, content, isDefault } = req.body
+    
+    if (!fs.existsSync(promptsJsonPath)) {
+      return res.status(404).json({ error: 'prompts.json not found' })
+    }
+    
+    const data = fs.readFileSync(promptsJsonPath, 'utf-8')
+    const promptsData = data.trim() ? JSON.parse(data) : { prompts: [] }
+    
+    const index = promptsData.prompts.findIndex(p => p.id === id)
+    if (index === -1) {
+      return res.status(404).json({ error: 'Prompt not found' })
+    }
+    
+    // If setting as default, unset other defaults
+    if (isDefault) {
+      promptsData.prompts = promptsData.prompts.map(p => 
+        p.id === id ? p : { ...p, isDefault: false }
+      )
+    }
+    
+    promptsData.prompts[index] = {
+      ...promptsData.prompts[index],
+      name: name !== undefined ? name : promptsData.prompts[index].name,
+      content: content !== undefined ? content : promptsData.prompts[index].content,
+      isDefault: isDefault !== undefined ? isDefault : promptsData.prompts[index].isDefault,
+      updatedAt: new Date().toISOString()
+    }
+    
+    fs.writeFileSync(promptsJsonPath, JSON.stringify(promptsData, null, 2), 'utf-8')
+    res.json({ success: true, prompt: promptsData.prompts[index] })
+  } catch (error) {
+    console.error('Error updating prompt:', error)
+    res.status(500).json({ error: 'Failed to update prompt' })
+  }
+})
+
+// Delete prompt
+app.delete('/api/prompts/:id', (req, res) => {
+  try {
+    const { id } = req.params
+    
+    if (!fs.existsSync(promptsJsonPath)) {
+      return res.status(404).json({ error: 'prompts.json not found' })
+    }
+    
+    const data = fs.readFileSync(promptsJsonPath, 'utf-8')
+    const promptsData = data.trim() ? JSON.parse(data) : { prompts: [] }
+    
+    const index = promptsData.prompts.findIndex(p => p.id === id)
+    if (index === -1) {
+      return res.status(404).json({ error: 'Prompt not found' })
+    }
+    
+    promptsData.prompts.splice(index, 1)
+    fs.writeFileSync(promptsJsonPath, JSON.stringify(promptsData, null, 2), 'utf-8')
+    res.json({ success: true })
+  } catch (error) {
+    console.error('Error deleting prompt:', error)
+    res.status(500).json({ error: 'Failed to delete prompt' })
   }
 })
 
