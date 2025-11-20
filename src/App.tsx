@@ -6,6 +6,7 @@ import Scheduler from './pages/Scheduler'
 import Settings from './pages/Settings'
 import Applications from './pages/Applications'
 import KnowledgeBase from './pages/KnowledgeBase'
+import Prompts from './pages/Prompts'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/unknown-questions" element={<KnowledgeBase />} />
+        <Route path="/prompts" element={<Prompts />} />
       </Routes>
     </Layout>
   )
