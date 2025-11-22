@@ -6,7 +6,23 @@
       "type": "list",
       "description": "Companies to automatically skip",
       "aiExplanation": "When encountering job postings from these companies, automatically skip them without applying. This is a hard filter - never apply to these companies regardless of other criteria. Match company names case-insensitively.",
-      "value": [],
+      "value": [
+        "D3 Security"
+      ],
+      "placeholder": "Enter company names, one per line",
+      "enabled": true
+    },
+    {
+      "id": "manual-apply-companies",
+      "name": "Manual Apply Companies",
+      "type": "list",
+      "description": "Companies I want to apply to manually (skip AI auto-apply)",
+      "aiExplanation": "Do NOT auto-apply to jobs from these companies. These are important companies where the user wants to apply manually to ensure accuracy. When encountering job postings from these companies, flag them for manual review and DO NOT submit any application automatically. Match company names case-insensitively and check for variations (e.g., 'Amazon' matches 'Amazon.com', 'AWS').",
+      "value": [
+        "Amazon",
+        "Google",
+        "Meta"
+      ],
       "placeholder": "Enter company names, one per line",
       "enabled": true
     },
@@ -23,16 +39,6 @@
         "commission only"
       ],
       "placeholder": "Enter keywords, one per line",
-      "enabled": true
-    },
-    {
-      "id": "blacklist-locations",
-      "name": "Blacklist Locations",
-      "type": "list",
-      "description": "Locations to automatically skip",
-      "aiExplanation": "Skip job postings that are located in these areas. Match location names case-insensitively. If a job mentions multiple locations and one is blacklisted, skip it.",
-      "value": [],
-      "placeholder": "Enter locations, one per line",
       "enabled": true
     },
     {
@@ -112,20 +118,6 @@
       "enabled": true
     },
     {
-      "id": "work-type",
-      "name": "Work Type Preference",
-      "type": "multiselect",
-      "description": "Acceptable work arrangements",
-      "aiExplanation": "Only apply to jobs that match at least one of these work types. If a job doesn't specify, you may still apply but note the missing information. 'Remote' means fully remote, 'hybrid' means partial remote, 'onsite' means office-based.",
-      "value": [],
-      "options": [
-        "remote",
-        "hybrid",
-        "onsite"
-      ],
-      "enabled": true
-    },
-    {
       "id": "preferred-locations",
       "name": "Preferred Locations",
       "type": "list",
@@ -146,23 +138,9 @@
       "description": "Technologies that must be present in the job",
       "aiExplanation": "Only apply to jobs that mention at least one of these technologies in the requirements or job description. This is a hard requirement - if none are mentioned, skip the job. Check for variations and related technologies (e.g., 'JS' matches 'JavaScript', 'React' matches 'React.js').",
       "value": [
-        "JavaScript",
-        "TypeScript"
-      ],
-      "placeholder": "Enter technologies, one per line",
-      "enabled": true
-    },
-    {
-      "id": "nice-to-have-tech",
-      "name": "Nice-to-Have Technologies",
-      "type": "list",
-      "description": "Technologies that are preferred but not required",
-      "aiExplanation": "Prioritize jobs that mention these technologies. These are bonus points - jobs with these technologies should be given higher priority, but jobs without them can still be considered.",
-      "value": [
-        "React",
-        "Node.js",
-        "Python",
-        ".NET"
+        "TypeScript",
+        "java",
+        "python"
       ],
       "placeholder": "Enter technologies, one per line",
       "enabled": true
@@ -200,26 +178,6 @@
       "enabled": true
     },
     {
-      "id": "company-size-preference",
-      "name": "Company Size Preference",
-      "type": "multiselect",
-      "description": "Preferred company sizes",
-      "aiExplanation": "Prioritize jobs from companies of these sizes. If a job doesn't specify company size, you may still apply. 'Startup' typically means <50 employees, 'Small' is 50-200, 'Medium' is 200-1000, 'Large' is 1000+.",
-      "value": [
-        "startup",
-        "small",
-        "medium"
-      ],
-      "options": [
-        "startup",
-        "small",
-        "medium",
-        "large",
-        "enterprise"
-      ],
-      "enabled": true
-    },
-    {
       "id": "job-level-preference",
       "name": "Job Level Preference",
       "type": "multiselect",
@@ -228,9 +186,6 @@
       "value": [
         "mid-level",
         "senior",
-        "lead",
-        "principal",
-        "staff",
         "junior",
         "intern"
       ],
@@ -271,6 +226,65 @@
       "description": "Skip contract or temporary positions",
       "aiExplanation": "If enabled, skip job postings that are explicitly contract, temporary, or freelance positions. Look for keywords like 'contract', 'temporary', 'freelance', 'consultant' in the job type or description.",
       "value": false,
+      "enabled": true
+    },
+    {
+      "id": "nice-to-have-tech",
+      "name": "Nice-to-Have Technologies",
+      "type": "list",
+      "description": "Technologies that are preferred but not required",
+      "aiExplanation": "Prioritize jobs that mention these technologies. These are bonus points - jobs with these technologies should be given higher priority, but jobs without them can still be considered.",
+      "value": [
+        "React",
+        "Node.js",
+        "Python",
+        ".NET"
+      ],
+      "placeholder": "Enter technologies, one per line",
+      "enabled": false
+    },
+    {
+      "id": "company-size-preference",
+      "name": "Company Size Preference",
+      "type": "multiselect",
+      "description": "Preferred company sizes",
+      "aiExplanation": "Prioritize jobs from companies of these sizes. If a job doesn't specify company size, you may still apply. 'Startup' typically means <50 employees, 'Small' is 50-200, 'Medium' is 200-1000, 'Large' is 1000+.",
+      "value": [
+        "startup",
+        "small",
+        "medium"
+      ],
+      "options": [
+        "startup",
+        "small",
+        "medium",
+        "large",
+        "enterprise"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "blacklist-locations",
+      "name": "Blacklist Locations",
+      "type": "list",
+      "description": "Locations to automatically skip",
+      "aiExplanation": "Skip job postings that are located in these areas. Match location names case-insensitively. If a job mentions multiple locations and one is blacklisted, skip it.",
+      "value": [],
+      "placeholder": "Enter locations, one per line",
+      "enabled": false
+    },
+    {
+      "id": "work-type",
+      "name": "Work Type Preference",
+      "type": "multiselect",
+      "description": "Acceptable work arrangements",
+      "aiExplanation": "Only apply to jobs that match at least one of these work types. If a job doesn't specify, you may still apply but note the missing information. 'Remote' means fully remote, 'hybrid' means partial remote, 'onsite' means office-based.",
+      "value": [],
+      "options": [
+        "remote",
+        "hybrid",
+        "onsite"
+      ],
       "enabled": false
     },
     {
