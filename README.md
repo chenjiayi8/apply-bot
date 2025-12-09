@@ -34,7 +34,7 @@ Bot: Searches, filters, and applies automatically based on your resume and prefe
 
 ## Requirements
 
-- Node.js 18+
+- Node.js 21+
 - Chrome/Edge browser
 - MCP-compatible AI tool (Claude Desktop, Cursor, VSCode, Windsurf, etc.)
 
