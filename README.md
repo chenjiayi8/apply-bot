@@ -4,14 +4,13 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Website](https://applybot.dev) | [Video Demo](#video-demo) | [Setup Guide](docs/setup.md) | [Issues](https://github.com/anthropics/apply-bot/issues)
+[Website](https://apply-bot.com) | [Video Demo](#video-demo) | [Setup Guide](https://docs.apply-bot.com) | [Issues](https://github.com/ZackHu-2001/apply-bot/issues)
 
 ---
 
 ## Video Demo
 
-<!-- TODO: Add demo video -->
-*Coming soon*
+[![Apply Bot Demo](public/apply-bot.gif)](http://youtube.com/watch?v=BcPL9qGtJdg&t=15s)
 
 ---
 
@@ -42,17 +41,17 @@ Bot: Searches, filters, and applies automatically based on your resume and prefe
 
 ```bash
 # Clone the repo
-git clone https://github.com/anthropics/apply-bot.git
+git clone https://github.com/ZackHu-2001/apply-bot.git
 cd apply-bot
 
 # Install dependencies
 npm install
 
-# Start the dashboard
-npm run dev
+# Start the dashboard & backend service
+npm run start
 ```
 
-See the full [Setup Guide](docs/setup.md) for detailed instructions.
+See the full [Setup Guide](https://docs.apply-bot.com) for detailed instructions.
 
 ## Tech Stack
 
